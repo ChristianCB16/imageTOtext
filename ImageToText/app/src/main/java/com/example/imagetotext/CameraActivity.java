@@ -1,10 +1,13 @@
 package com.example.imagetotext;
 
+
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -24,6 +27,7 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
 public class CameraActivity extends AppCompatActivity {
+
     ImageView imageView;
     TextView textView;
 
@@ -46,7 +50,7 @@ public class CameraActivity extends AppCompatActivity {
     public void doProcess(View view) {
         //open the camera => create an Intent object
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 101);
+        //startActivityForResult(intent, 101);
     }
 
     @Override
