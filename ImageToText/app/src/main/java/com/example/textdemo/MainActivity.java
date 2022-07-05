@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,9 +43,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     ImageView imageView;
-    TextView textView;
+    EditText textView;
     TextView translatedView;
     Spinner spinnerLanguages;
+    Spinner spinner ;
     private static final String TAG = "LangID";
     String s = "placeholder";
     String finalTranslatedText = "placeholder";
@@ -54,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //spiner target
+        spinner = (Spinner) findViewById(R.id.spinner_languages_obj);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.Target_lenguages, android.R.layout.simple_spinner_item);
+            // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+
+
+
         //find imageview
         imageView = findViewById(R.id.imageId);
         //find textview
@@ -75,7 +90,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void translate(View view) {
-        translateTextToSpanish(s, spinnerLanguages.getSelectedItem().toString());
+        int day = spinner.getSelectedItemPosition();
+        switch (day) {
+            case 0:
+                translateTextToSpanish(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                break;
+            case 1:
+                translateTextToEnglish(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                break;
+            case 2:
+                translateTextToFrances(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                break;
+            case 3:
+                translateTextToPortugues(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                break;
+        }
+
         Log.i("TEST ", finalTranslatedText);
     }
 
@@ -194,4 +224,145 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
     }
+
+    private void translateTextToEnglish(String text, String inputLanguage) {
+        // Create a translator
+        TranslatorOptions options =
+                new TranslatorOptions.Builder()
+                        .setSourceLanguage(TranslateLanguage.ENGLISH)
+                        .setTargetLanguage(TranslateLanguage.ENGLISH)
+                        .build();
+        final Translator dynamicTranslator =
+                Translation.getClient(options);
+
+        DownloadConditions conditions = new DownloadConditions.Builder()
+                .requireWifi()
+                .build();
+        dynamicTranslator.downloadModelIfNeeded(conditions)
+                .addOnSuccessListener(
+                        new OnSuccessListener() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                dynamicTranslator.translate(text)
+                                        .addOnSuccessListener(
+                                                new OnSuccessListener() {
+                                                    @Override
+                                                    public void onSuccess(Object o) {
+                                                        Log.i("SUCCESS", o.toString());
+                                                        translatedView.setText(o.toString());
+                                                    }
+                                                })
+                                        .addOnFailureListener(
+                                                new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        // Error.
+                                                        // ...
+                                                    }
+                                                });
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Model couldn’t be downloaded or other internal error.
+                                // ...
+                            }
+                        });
+    }
+    private void translateTextToPortugues(String text, String inputLanguage) {
+        // Create a translator
+        TranslatorOptions options =
+                new TranslatorOptions.Builder()
+                        .setSourceLanguage(TranslateLanguage.ENGLISH)
+                        .setTargetLanguage(TranslateLanguage.PORTUGUESE)
+                        .build();
+        final Translator dynamicTranslator =
+                Translation.getClient(options);
+
+        DownloadConditions conditions = new DownloadConditions.Builder()
+                .requireWifi()
+                .build();
+        dynamicTranslator.downloadModelIfNeeded(conditions)
+                .addOnSuccessListener(
+                        new OnSuccessListener() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                dynamicTranslator.translate(text)
+                                        .addOnSuccessListener(
+                                                new OnSuccessListener() {
+                                                    @Override
+                                                    public void onSuccess(Object o) {
+                                                        Log.i("SUCCESS", o.toString());
+                                                        translatedView.setText(o.toString());
+                                                    }
+                                                })
+                                        .addOnFailureListener(
+                                                new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        // Error.
+                                                        // ...
+                                                    }
+                                                });
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Model couldn’t be downloaded or other internal error.
+                                // ...
+                            }
+                        });
+    }
+
+    private void translateTextToFrances(String text, String inputLanguage) {
+        // Create a translator
+        TranslatorOptions options =
+                new TranslatorOptions.Builder()
+                        .setSourceLanguage(TranslateLanguage.ENGLISH)
+                        .setTargetLanguage(TranslateLanguage.FRENCH)
+                        .build();
+        final Translator dynamicTranslator =
+                Translation.getClient(options);
+
+        DownloadConditions conditions = new DownloadConditions.Builder()
+                .requireWifi()
+                .build();
+        dynamicTranslator.downloadModelIfNeeded(conditions)
+                .addOnSuccessListener(
+                        new OnSuccessListener() {
+                            @Override
+                            public void onSuccess(Object o) {
+                                dynamicTranslator.translate(text)
+                                        .addOnSuccessListener(
+                                                new OnSuccessListener() {
+                                                    @Override
+                                                    public void onSuccess(Object o) {
+                                                        Log.i("SUCCESS", o.toString());
+                                                        translatedView.setText(o.toString());
+                                                    }
+                                                })
+                                        .addOnFailureListener(
+                                                new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        // Error.
+                                                        // ...
+                                                    }
+                                                });
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Model couldn’t be downloaded or other internal error.
+                                // ...
+                            }
+                        });
+    }
+
 }

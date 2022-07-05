@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5234029f-c141-40fa-9417-2d72be3a543d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/imageTOtext/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imageTOtext/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imageTOtext/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/imageTOtext/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imageTOtext/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/imageTOtext/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imageTOtext/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/imageTOtext/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imageTOtext/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/imageTOtext/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/imageTOtext/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imageTOtext/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/imageTOtext/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imageTOtext/app/src/main/java/com/example/textdemo/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/imageTOtext/app/src/main/java/com/example/textdemo/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imageTOtext/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/imageTOtext/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-    </list>
+    <list default="true" id="5234029f-c141-40fa-9417-2d72be3a543d" name="Changes" comment="Changes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,7 +24,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/imageTOtext" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ImageToText" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

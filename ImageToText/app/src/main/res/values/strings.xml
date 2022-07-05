@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TextDemo</string>
+    <string name="invalid_mail">Ingrese un correo valido</string>
+    <string name="invalid_password">Ingrese una contraseña valida</string>
+    <string-array name="Target_lenguages">
+        <item>Spanish</item>
+        <item>English</item>
+        <item>Frances</item>
+        <item>Portugues</item>
+    </string-array>
 </resources>
