@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TextDemo</string>
+    <string name="app_name">Image Traductor</string>
     <string name="invalid_mail">Ingrese un correo valido</string>
     <string name="invalid_password">Ingrese una contraseña valida</string>
     <string-array name="Target_lenguages">

@@ -3,4 +3,14 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="botones">#7F95D1</color>
+    <color name="fondos">#D0CEBA</color>
+    <color name="barra">#adac9a</color>
+    <color name="oscuro">#02394A</color>
+    <color name="casiBlack">#1F0812</color>
+    <color name="Black">#000000</color>
+    <color name="white">#fcfbe1</color>
+
+
 </resources>

@@ -5,18 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/fondos">
 
-    <Button
-        android:id="@+id/button"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardbtn01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="doProcess"
-        android:text="take pic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="doProcess"
+            android:text="take pic"
+            android:background="@color/botones"
+            android:textColor="@color/Black" />
+
+    </androidx.cardview.widget.CardView>
+
 
     <ImageView
         android:id="@+id/imageId"
@@ -25,91 +40,181 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/cardbtn01"
         app:layout_constraintVertical_bias="0.0" />
 
-
-    <EditText
-        android:id="@+id/textId"
+    <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="100dp"
-        android:hint="Resultado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageId"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+        <EditText
+            android:id="@+id/textId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:textSize="25dp"
+            android:hint="Recognition  Result"
+            />
 
-    <Spinner
-        android:id="@+id/spinner_languages"
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardspin01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/textId"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="@+id/scroll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textId"
-        app:layout_constraintTop_toTopOf="@+id/imageId"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/scroll"
+        app:layout_constraintTop_toTopOf="@+id/scroll"
+        app:layout_constraintVertical_bias="0.0"
+        app:cardBackgroundColor="@color/botones">
 
-    <Button
-        android:id="@+id/button2"
+        <Spinner
+            android:id="@+id/spinner_languages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+ />
+    </androidx.cardview.widget.CardView>
+
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardbtn02"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="translate"
-        android:text="Translate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textId"
-        app:layout_constraintVertical_bias="0.19999999" />
+        app:layout_constraintTop_toBottomOf="@+id/scroll"
+        app:layout_constraintVertical_bias="0.19999999"
 
-    <TextView
-        android:id="@+id/texTranslated"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="translate"
+            android:text="Translate"
+            android:background="@color/botones"
+            android:textColor="@color/Black"
+ />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <ScrollView
+        android:id="@id/scroll2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/cardbtn02"
+        app:layout_constraintVertical_bias="0.0">
+        <TextView
+            android:id="@+id/texTranslated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scroll2"
+            app:layout_constraintVertical_bias="0.0"
+            android:textColor="@color/Black"
+            android:background="@color/white"
+            android:textSize="25dp"
+            android:hint="Translation"/>
 
-    <Spinner
-        android:id="@+id/spinner_languages_obj"
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardspin02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.692"
-        app:layout_constraintStart_toEndOf="@+id/texTranslated"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/scroll2"
+        app:layout_constraintTop_toBottomOf="@+id/cardbtn02"
+        app:layout_constraintVertical_bias="0.0"
+        app:cardBackgroundColor="@color/botones">
 
-    <Button
-        android:id="@+id/btn_guardar"
-        android:layout_width="200dp"
+        <Spinner
+            android:id="@+id/spinner_languages_obj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardbtn03"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="postTraduction"
-        android:text="Save Transaltion"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/texTranslated"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/scroll2"
+        app:layout_constraintVertical_bias="1.0">
 
-    <Button
-        android:id="@+id/selectFireBase"
-        android:layout_width="150dp"
+        <Button
+            android:id="@+id/btn_guardar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@color/botones"
+            android:onClick="postTraduction"
+            android:text="Save Transaltion"
+            android:textColor="@color/Black" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardbtn04"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="REmember"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/btn_guardar"
-        app:layout_constraintTop_toBottomOf="@+id/texTranslated"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll2"
+        app:layout_constraintVertical_bias="1.0">
+
+        <Button
+            android:id="@+id/selectFireBase"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@color/botones"
+            android:text="REmember"
+            android:textColor="@color/Black" />
+    </androidx.cardview.widget.CardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

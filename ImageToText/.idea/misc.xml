@@ -8,9 +8,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Hugo Doradea/Documents/GitHub/imageTOtext/ImageToText/app/src/main/res/layout/activity_loggin.xml" value="0.3858695652173913" />
-        <entry key="..\:/Users/Hugo Doradea/Documents/GitHub/imageTOtext/ImageToText/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/Hugo Doradea/Documents/GitHub/imageTOtext/ImageToText/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2465" />
+        <entry key="..\:/Users/Hugo Doradea/Documents/GitHub/imageTOtext/ImageToText/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3875" />
+        <entry key="..\:/Users/Hugo Doradea/Documents/GitHub/imageTOtext/ImageToText/app/src/main/res/layout/activity_loggin.xml" value="0.4234154929577465" />
+        <entry key="..\:/Users/Hugo Doradea/Documents/GitHub/imageTOtext/ImageToText/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Hugo Doradea/Documents/GitHub/imageTOtext/ImageToText/app/src/main/res/layout/activity_registrar.xml" value="0.3858695652173913" />
+        <entry key="..\:/Users/Hugo Doradea/Documents/GitHub/imageTOtext/ImageToText/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3875" />
+        <entry key="..\:/Users/Hugo Doradea/Documents/GitHub/imageTOtext/ImageToText/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2465" />
         <entry key="..\:/Users/USER/Documents/UCA0122/AplicacionesCodigoAbierto/AndroidWithGoogleMLKit/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
       </map>
     </option>

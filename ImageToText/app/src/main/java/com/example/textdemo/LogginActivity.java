@@ -54,19 +54,15 @@ public class LogginActivity extends AppCompatActivity {
         button_iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LogginActivity.this, "Registro el boton.", Toast.LENGTH_SHORT).show();
                 if(awesomeValidation.validate()){
-                    Toast.makeText(LogginActivity.this, "Se valido bien.", Toast.LENGTH_SHORT).show();
 
                     String mail = et_mail.getText().toString();
                     String passwd = et_passwd.getText().toString();
-                    Toast.makeText(LogginActivity.this, "email: "+ mail, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(LogginActivity.this, "email: "+ passwd, Toast.LENGTH_SHORT).show();
                     firebaseAuth.signInWithEmailAndPassword(mail,passwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(LogginActivity.this, "On Complete.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LogginActivity.this, "Se inició Sesión correctamente.", Toast.LENGTH_SHORT).show();
                                 iraHome();
                             }else {
                                 String error = ((FirebaseAuthException) task.getException()).getErrorCode();
@@ -75,8 +71,6 @@ public class LogginActivity extends AppCompatActivity {
                         }
                     });
 
-                }else{
-                    Toast.makeText(LogginActivity.this, "No se valido.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -93,7 +87,6 @@ public class LogginActivity extends AppCompatActivity {
     }
 
     private void iraHome() {
-        Toast.makeText(LogginActivity.this, "Llego a ir a home.", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
