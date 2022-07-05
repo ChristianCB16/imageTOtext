@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        items.add("N/F");
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         email = user.getEmail();
-
+        //Solucionando error de cierre de app
         btn_insert = findViewById(R.id.btn_guardar);
         mfirestore = FirebaseFirestore.getInstance();
         //spiner target
@@ -113,44 +113,53 @@ public class MainActivity extends AppCompatActivity {
 
     public void translate(View view) {
 
-        int day = spinner.getSelectedItemPosition();
-        switch (day) {
-            case 0:
-                translateTextToSpanish(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
-                break;
-            case 1:
-                translateTextToEnglish(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
-                break;
-            case 2:
-                translateTextToFrances(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
-                break;
-            case 3:
-                translateTextToPortugues(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
-                break;
+        if(items.get(0)!="N/F"){
+            int day = spinner.getSelectedItemPosition();
+            switch (day) {
+                case 0:
+                    translateTextToSpanish(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                    break;
+                case 1:
+                    translateTextToEnglish(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                    break;
+                case 2:
+                    translateTextToFrances(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                    break;
+                case 3:
+                    translateTextToPortugues(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                    break;
+            }
+            Log.i("TEST ", finalTranslatedText);
+        }else {
+            Toast.makeText(MainActivity.this, "Se necesita una nueva foto.", Toast.LENGTH_SHORT).show();
         }
 
-        Log.i("TEST ", finalTranslatedText);
+
     }
     public void postTraduction(View view) {
 
+        if(textView.getText().toString() !="" &&translatedView.getText().toString() !="" ){
+            Map<String, Object> map = new HashMap<>();
+            map.put("Email",email);
+            map.put("Texto",textView.getText().toString());
+            map.put("Traduccion",translatedView.getText().toString());
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("Email",email);
-        map.put("Texto",textView.getText().toString());
-        map.put("Traduccion",translatedView.getText().toString());
-
-        mfirestore.collection("Traduccion").add(map).
-                addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(MainActivity.this, "Se ha guardado con Exito.", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, "Ha ocurrido un error.", Toast.LENGTH_SHORT).show();
-            }
-        });
+            mfirestore.collection("Traduccion").add(map).
+                    addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(MainActivity.this, "Se ha guardado con Exito.", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(MainActivity.this, "Ha ocurrido un error.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }{
+            Toast.makeText(this, "Necesita llenar los campos ante de guardar.", Toast.LENGTH_SHORT).show();
+        }
+        
     }
 
     @Override
@@ -209,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.i(TAG, language + " (" + confidence + ")");
                             items.add(language);
                         }
+
                     }
                 })
                 .addOnFailureListener(
