@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -24,6 +25,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
@@ -38,7 +43,9 @@ import com.google.mlkit.nl.translate.Translator;
 import com.google.mlkit.nl.translate.TranslatorOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,16 +54,26 @@ public class MainActivity extends AppCompatActivity {
     TextView translatedView;
     Spinner spinnerLanguages;
     Spinner spinner ;
+    Button btn_insert;
     private static final String TAG = "LangID";
     String s = "placeholder";
     String finalTranslatedText = "placeholder";
     List<String> items = new ArrayList<>();
+    FirebaseFirestore mfirestore;
+    String email;
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        email = user.getEmail();
+
+        btn_insert = findViewById(R.id.btn_guardar);
+        mfirestore = FirebaseFirestore.getInstance();
         //spiner target
         spinner = (Spinner) findViewById(R.id.spinner_languages_obj);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -74,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         //find textview
         textView = findViewById(R.id.textId);
         translatedView = findViewById(R.id.texTranslated);
+
         //spinner para lenguajes detectados
         spinnerLanguages = (Spinner)findViewById(R.id.spinner_languages);
         //check app level permission is granted for Camera
@@ -81,7 +99,11 @@ public class MainActivity extends AppCompatActivity {
             //grant the permission
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
         }
+
     }
+
+
+
 
     public void doProcess(View view) {
         //open the camera => create an Intent object
@@ -107,6 +129,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.i("TEST ", finalTranslatedText);
+    }
+    public void postTraduction(View view) {
+        Toast.makeText(MainActivity.this, "metodo post.", Toast.LENGTH_SHORT).show();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("Email",email);
+        map.put("Texto",textView.getText().toString());
+        map.put("Traduccion",translatedView.getText().toString());
+
+        mfirestore.collection("Traduccion").add(map).
+                addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(MainActivity.this, "Se ha guardado con Exito.", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainActivity.this, "Ha ocurrido un error.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
