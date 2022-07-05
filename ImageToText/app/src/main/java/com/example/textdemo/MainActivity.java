@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("TEST ", finalTranslatedText);
     }
     public void postTraduction(View view) {
-        Toast.makeText(MainActivity.this, "metodo post.", Toast.LENGTH_SHORT).show();
+
 
         Map<String, Object> map = new HashMap<>();
         map.put("Email",email);
