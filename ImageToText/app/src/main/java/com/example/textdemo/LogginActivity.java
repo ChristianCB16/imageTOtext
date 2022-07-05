@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -23,18 +24,21 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LogginActivity extends AppCompatActivity {
 
-    Button button_registrar, button_iniciar, button_recuperar;
+    Button button_registrar, button_iniciar;
     EditText et_mail, et_passwd;
     AwesomeValidation awesomeValidation;
     FirebaseAuth firebaseAuth;
+    FirebaseAuth mAuth;
+    ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loggin);
+        mDialog = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null){
             iraHome();
@@ -46,7 +50,6 @@ public class LogginActivity extends AppCompatActivity {
 
         button_registrar = findViewById(R.id.btn_crear);
         button_iniciar = findViewById(R.id.btn_register);
-        button_recuperar = findViewById(R.id.btn_recuperar);
 
         et_mail= findViewById(R.id.editTextTextEmailAddress);
         et_passwd = findViewById(R.id.editTextTextPassword);
@@ -75,6 +78,7 @@ public class LogginActivity extends AppCompatActivity {
             }
         });
 
+
         button_registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +89,8 @@ public class LogginActivity extends AppCompatActivity {
 
 
     }
+
+
 
     private void iraHome() {
         Intent i = new Intent(this, MainActivity.class);
