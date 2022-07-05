@@ -1,4 +1,4 @@
-package com.example.imagetotext;
+package com.example.textdemo;
 
 import org.junit.Test;
 
