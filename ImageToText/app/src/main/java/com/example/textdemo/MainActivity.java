@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void translate(View view) {
+
         int day = spinner.getSelectedItemPosition();
         switch (day) {
             case 0:
