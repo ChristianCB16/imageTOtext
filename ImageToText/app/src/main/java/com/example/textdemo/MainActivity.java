@@ -36,6 +36,7 @@ import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.languageid.IdentifiedLanguage;
 import com.google.mlkit.nl.languageid.LanguageIdentification;
+import com.google.mlkit.nl.languageid.LanguageIdentificationOptions;
 import com.google.mlkit.nl.languageid.LanguageIdentifier;
 import com.google.mlkit.nl.translate.TranslateLanguage;
 import com.google.mlkit.nl.translate.Translation;
@@ -52,12 +53,17 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     EditText textView;
     TextView translatedView;
+    //botón dropdown que contiene los posibles lenguajes detectados en la foto
     Spinner spinnerLanguages;
+    //botón dropdown que contiene las opciones de lenguje al cúal se traduce el texto
     Spinner spinner ;
     Button btn_insert;
     private static final String TAG = "LangID";
+    //cadena donde se guarda el texto recuperado de la foto
     String s = "placeholder";
+    //cadena donde se guarda el texto traducido
     String finalTranslatedText = "placeholder";
+    //arreglo donde se guardan los posibles lenguajes reconodcidos en la foto
     List<String> items = new ArrayList<>();
     FirebaseFirestore mfirestore;
     String email;
@@ -74,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         //Solucionando error de cierre de app
         btn_insert = findViewById(R.id.btn_guardar);
         mfirestore = FirebaseFirestore.getInstance();
-        //spiner target
+        //implementación del dropwdown que contiene las opciones de lenguaje para la traducción
         spinner = (Spinner) findViewById(R.id.spinner_languages_obj);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.Target_lenguages, android.R.layout.simple_spinner_item);
@@ -82,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-
-
-
 
         //find imageview
         imageView = findViewById(R.id.imageId);
@@ -99,37 +102,41 @@ public class MainActivity extends AppCompatActivity {
             //grant the permission
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
         }
-
+        //modificamos la precisión del indentificador de lenguajes
+        setConfidence();
     }
 
+    //ir al historial de traducciones
     public  void goHistorial (View view) {
         Intent remember = new Intent(MainActivity.this, RememberActivity.class);
         //remember.putExtra("email_key", email);
         startActivity(remember);
     }
 
-
+    //proceso que ocurre al hacer clic sobre boptón take pic
     public void doProcess(View view) {
         //open the camera => create an Intent object
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, 101);
     }
 
+    //función para traducir el texto reconocido
     public void translate(View view) {
+        //traducimos según la opción seleccionada en el dropdown
         if(items.get(0)!="N/F"){
             int day = spinner.getSelectedItemPosition();
             switch (day) {
                 case 0:
-                    translateTextToSpanish(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                    translateText(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString(), "es");
                     break;
                 case 1:
-                    translateTextToEnglish(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                    translateText(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString(), "en");
                     break;
                 case 2:
-                    translateTextToFrances(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                    translateText(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString(), "fr");
                     break;
                 case 3:
-                    translateTextToPortugues(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString());
+                    translateText(textView.getText().toString(), spinnerLanguages.getSelectedItem().toString(), "pt");
                     break;
             }
             Log.i("TEST ", finalTranslatedText);
@@ -138,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //manejo de las ocurrencias luego de una traducción
     public void postTraduction(View view) {
 
         if(textView.getText().toString() !="" &&translatedView.getText().toString() !="" ){
@@ -200,11 +208,25 @@ public class MainActivity extends AppCompatActivity {
         //7. detectar los posibles idiomas en los que podría estar el texto analizado
         getPossibleLanguuages(s);
         //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items.toArray(new String[items.size()]));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //set the spinners adapter to the previously created one.
         spinnerLanguages.setAdapter(adapter);
     }
 
+    //función con la que cambiamos el parámetro de precisión de la identifiación del lenguaje
+    //si este valor es muy alto, a veces no aparece el lenguaje que esperamos
+    private void setConfidence() {
+        // [START set_confidence]
+        LanguageIdentifier languageIdentifier = LanguageIdentification.getClient(
+                new LanguageIdentificationOptions.Builder()
+                        .setConfidenceThreshold(0.30f)
+                        .build());
+        // [END set_confidence]
+    }
+
+    //función que utiliza los modelos de lenguaje del cliente de google para identificar qué lenguaje utiliza el texto
+    //reconocido en la imagen
     private void getPossibleLanguuages(String text) {
         // [START get_possible_languages]
         LanguageIdentifier languageIdentifier =
@@ -214,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(List<IdentifiedLanguage> identifiedLanguages) {
                         items.clear();
+                        //el siguiente paso recupera cada posible lenguaje y lo guarda en el dropdown de lenguajes reconocidos
                         for (IdentifiedLanguage identifiedLanguage : identifiedLanguages) {
                             String language = identifiedLanguage.getLanguageTag();
                             float confidence = identifiedLanguage.getConfidence();
@@ -234,24 +257,29 @@ public class MainActivity extends AppCompatActivity {
         // [END get_possible_languages]
     }
 
-    private void translateTextToSpanish(String text, String inputLanguage) {
+    //traduce el texto, primero creando un objeto traductor a partir del lenguaje de ingreso que seleccionamos en el dropdown de posibles lenguajes
+    // y a partir de lenguaje de salida que elejimos en el dropdown de opciones de traducción
+    private void translateText(String text, String inputLanguage, String outputLanguage) {
         // Create a translator
         TranslatorOptions options =
                 new TranslatorOptions.Builder()
-                        .setSourceLanguage(TranslateLanguage.ENGLISH)
-                        .setTargetLanguage(TranslateLanguage.SPANISH)
+                        .setSourceLanguage(TranslateLanguage.fromLanguageTag(inputLanguage))
+                        .setTargetLanguage(TranslateLanguage.fromLanguageTag(outputLanguage))
                         .build();
         final Translator dynamicTranslator =
                 Translation.getClient(options);
 
+        //la sección siguiente descarga los modelos de lenguaje escogidos si no se cuenta con ellos en el dispositivo
+        //cada modelo de lenguaje necesita alrededor de 30MB
+        //los modelos utilizados forman parte de la tecnología de google translate
         DownloadConditions conditions = new DownloadConditions.Builder()
-                .requireWifi()
                 .build();
         dynamicTranslator.downloadModelIfNeeded(conditions)
                 .addOnSuccessListener(
                         new OnSuccessListener() {
                             @Override
                             public void onSuccess(Object o) {
+                                //sección para traducir el texto una vez se hayan descargado los modelos
                                 dynamicTranslator.translate(text)
                                         .addOnSuccessListener(
                                                 new OnSuccessListener() {
@@ -280,145 +308,4 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
     }
-
-    private void translateTextToEnglish(String text, String inputLanguage) {
-        // Create a translator
-        TranslatorOptions options =
-                new TranslatorOptions.Builder()
-                        .setSourceLanguage(TranslateLanguage.ENGLISH)
-                        .setTargetLanguage(TranslateLanguage.ENGLISH)
-                        .build();
-        final Translator dynamicTranslator =
-                Translation.getClient(options);
-
-        DownloadConditions conditions = new DownloadConditions.Builder()
-                .requireWifi()
-                .build();
-        dynamicTranslator.downloadModelIfNeeded(conditions)
-                .addOnSuccessListener(
-                        new OnSuccessListener() {
-                            @Override
-                            public void onSuccess(Object o) {
-                                dynamicTranslator.translate(text)
-                                        .addOnSuccessListener(
-                                                new OnSuccessListener() {
-                                                    @Override
-                                                    public void onSuccess(Object o) {
-                                                        Log.i("SUCCESS", o.toString());
-                                                        translatedView.setText(o.toString());
-                                                    }
-                                                })
-                                        .addOnFailureListener(
-                                                new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        // Error.
-                                                        // ...
-                                                    }
-                                                });
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Model couldn’t be downloaded or other internal error.
-                                // ...
-                            }
-                        });
-    }
-    private void translateTextToPortugues(String text, String inputLanguage) {
-        // Create a translator
-        TranslatorOptions options =
-                new TranslatorOptions.Builder()
-                        .setSourceLanguage(TranslateLanguage.ENGLISH)
-                        .setTargetLanguage(TranslateLanguage.PORTUGUESE)
-                        .build();
-        final Translator dynamicTranslator =
-                Translation.getClient(options);
-
-        DownloadConditions conditions = new DownloadConditions.Builder()
-                .requireWifi()
-                .build();
-        dynamicTranslator.downloadModelIfNeeded(conditions)
-                .addOnSuccessListener(
-                        new OnSuccessListener() {
-                            @Override
-                            public void onSuccess(Object o) {
-                                dynamicTranslator.translate(text)
-                                        .addOnSuccessListener(
-                                                new OnSuccessListener() {
-                                                    @Override
-                                                    public void onSuccess(Object o) {
-                                                        Log.i("SUCCESS", o.toString());
-                                                        translatedView.setText(o.toString());
-                                                    }
-                                                })
-                                        .addOnFailureListener(
-                                                new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        // Error.
-                                                        // ...
-                                                    }
-                                                });
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Model couldn’t be downloaded or other internal error.
-                                // ...
-                            }
-                        });
-    }
-
-    private void translateTextToFrances(String text, String inputLanguage) {
-        // Create a translator
-        TranslatorOptions options =
-                new TranslatorOptions.Builder()
-                        .setSourceLanguage(TranslateLanguage.ENGLISH)
-                        .setTargetLanguage(TranslateLanguage.FRENCH)
-                        .build();
-        final Translator dynamicTranslator =
-                Translation.getClient(options);
-
-        DownloadConditions conditions = new DownloadConditions.Builder()
-                .requireWifi()
-                .build();
-        dynamicTranslator.downloadModelIfNeeded(conditions)
-                .addOnSuccessListener(
-                        new OnSuccessListener() {
-                            @Override
-                            public void onSuccess(Object o) {
-                                dynamicTranslator.translate(text)
-                                        .addOnSuccessListener(
-                                                new OnSuccessListener() {
-                                                    @Override
-                                                    public void onSuccess(Object o) {
-                                                        Log.i("SUCCESS", o.toString());
-                                                        translatedView.setText(o.toString());
-                                                    }
-                                                })
-                                        .addOnFailureListener(
-                                                new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        // Error.
-                                                        // ...
-                                                    }
-                                                });
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Model couldn’t be downloaded or other internal error.
-                                // ...
-                            }
-                        });
-    }
-
 }
