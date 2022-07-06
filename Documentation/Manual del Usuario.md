@@ -16,7 +16,7 @@ Una vez dentro, **pulsa sobre el interruptor que tienes al lado de la opción  _
 
 ## Autenticación
 
-<img src="C:\Users\USER\Pictures\UCA\WhatsApp Image 2022-07-06 at 1.23.44 PM.jpeg" width="50%">
+<img src="https://user-images.githubusercontent.com/54408047/177633236-a2896f15-5ae5-4652-a829-cfa239daf137.jpeg" width="200">
 
 La aplicación cuenta con un sistema de autenticación, implementado con el único objetivo de tener una referencia de usuario para poder almacenar en la nube un historial de traducciones y que este pueda acceder a ellos fácilmente.
 
@@ -27,6 +27,8 @@ Para registrarse, ingresar un correo electrónico y una contraseña en los campo
 Una vez hayas creado un usuario en la aplicación, podrás iniciar sesión al ingresar tus credenciales en los campos indicados y luego presionando el botón **INICIAR SESIÓN**.
 
 ## Pasos para la traducción de texto
+
+<img src="https://user-images.githubusercontent.com/54408047/177633921-25af9b4b-7073-4050-9e5d-449e78d91171.jpeg" width="200">
 
 Se podría decir que la aplicación se encuentra en una fase ALPHA de desarrollo por lo que si no sigues los pasos en el orden detallado, el funcionamiento podría ser diferente al esperado.
 
