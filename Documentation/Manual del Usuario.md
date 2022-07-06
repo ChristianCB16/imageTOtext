@@ -44,7 +44,3 @@ Se podría decir que la aplicación se encuentra en una fase ALPHA de desarrollo
 Si has completado los pasos anteriores y quieres guardar el resultado actual de la traducción, puedes oprimir en el botón **SAVE TRANSLATION** para guardar el resultado en la nube bajo tu usuario.
 
 El historial se vuelve visible al presionar el botón **REMEMBER**.
-
-## Export a file
-
-You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
