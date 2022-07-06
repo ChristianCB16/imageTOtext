@@ -102,7 +102,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    public  void goHistorial (View view) {
+        Intent remember = new Intent(MainActivity.this, RememberActivity.class);
+        //remember.putExtra("email_key", email);
+        startActivity(remember);
+    }
 
 
     public void doProcess(View view) {
@@ -112,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void translate(View view) {
-
         if(items.get(0)!="N/F"){
             int day = spinner.getSelectedItemPosition();
             switch (day) {
@@ -133,9 +136,8 @@ public class MainActivity extends AppCompatActivity {
         }else {
             Toast.makeText(MainActivity.this, "Se necesita una nueva foto.", Toast.LENGTH_SHORT).show();
         }
-
-
     }
+
     public void postTraduction(View view) {
 
         if(textView.getText().toString() !="" &&translatedView.getText().toString() !="" ){
