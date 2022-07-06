@@ -2,6 +2,8 @@
     <string name="app_name">Image Traductor</string>
     <string name="invalid_mail">Ingrese un correo valido</string>
     <string name="invalid_password">Ingrese una contraseña valida</string>
+    <string name="palabra_original">Palabra original:</string>
+    <string name="palabra_traducida">Palabra traducida:</string>
     <string-array name="Target_lenguages">
         <item>Spanish</item>
         <item>English</item>

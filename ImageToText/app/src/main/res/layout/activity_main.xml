@@ -211,6 +211,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@color/botones"
+            android:onClick="goHistorial"
             android:text="REmember"
             android:textColor="@color/Black" />
     </androidx.cardview.widget.CardView>
