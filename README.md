@@ -1,6 +1,6 @@
 <p align="center">
     <span>
-      <a <img src="https://github.com/ChristianCB16/imageTOtext/blob/main/Documentation/img/imageTOtext_logo.png" width="500" alt="Image To Text Translator" /></a>
+      <img src="https://github.com/ChristianCB16/imageTOtext/blob/main/Documentation/img/imageTOtext_logo.png" width="150" alt="Image To Text Translator" />
     </span>
     <br/>
     <span>
