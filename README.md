@@ -1,6 +1,6 @@
 <p align="center">
     <span>
-      <a <img src="https://github.com/dannielarenderos/WebMappingMunicipiosRiosCerrosES/blob/main/img/CrimeReporterLOGO.png" width="500" alt="Image To Text Translator" /></a>
+      <a <img src="https://github.com/ChristianCB16/imageTOtext/blob/main/Documentation/img/imageTOtext_logo.png" width="500" alt="Image To Text Translator" /></a>
     </span>
     <br/>
     <span>
@@ -35,7 +35,7 @@ Herramientas y Licencias⚙️📜:
     Firebase es una plataforma para el desarrollo de aplicaciones web y aplicaciones móviles. Usa un conjunto de herramientas multiplataforma, se integra fácilmente para plataformas web como en aplicaciones móviles. Es compatible con grandes plataformas, como IOS, Android, aplicaciones web, Unity y C++.<br>
     Licencia: <strong>⚖️Apache 2.0 License</strong> 
 
-  🔹[Android Studio](http://firebase.google.com)  <img src="https://img.icons8.com/fluency/16/000000/android-os.png"/>   : <br>
+  🔹[Android Studio](https://developer.android.com)  <img src="https://img.icons8.com/fluency/16/000000/android-os.png"/>   : <br>
     Android Studio es el entorno de desarrollo integrado oficial para la plataforma Android. Está basado en el software IntelliJ IDEA de JetBrains y ha sido publicado de forma gratuita a través de la Licencia Apache 2.0. Está disponible para las plataformas GNU/Linux, macOS, Microsoft Windows y Chrome OS. Ha sido diseñado específicamente para el desarrollo de Android.  
     Licencia: <strong>⚖️Apache 2.0 License</strong> 
    
